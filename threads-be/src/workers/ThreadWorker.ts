@@ -5,7 +5,6 @@ import { AppDataSource } from "../data-source";
 import { Thread } from "../entities/Thread";
 import { EventEmitter } from "stream";
 import { request } from "http";
-
 class ThreadWorker extends EventEmitter {
   async create(queueName: string, connection: amqp.Connection) {
     try {
@@ -23,6 +22,8 @@ class ThreadWorker extends EventEmitter {
               "./uploads/" + payload.image
             );
 
+            // const cloudinaryResponse = cloudinary.uploader.unsigned_upload( payload.image, "xsdn7ulq").then((data)=>console.log("berhasil:",data));
+            // console.log(cloudinaryResponse,"respon")
             const thread = AppDataSource.getRepository(Thread).create({
               content: payload.content,
               image: cloudinaryResponse.secure_url,
@@ -30,7 +31,9 @@ class ThreadWorker extends EventEmitter {
                 id: payload.user_id,
               },
             });
-
+            // if(thread.image===""){
+            //   return thread
+            // }
             await AppDataSource.getRepository(Thread).save(thread);
 
             // request to server

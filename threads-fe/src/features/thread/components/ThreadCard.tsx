@@ -1,47 +1,55 @@
 import { IThreadCard } from "@/interfaces/thread";
-import { Box, Button, Image, Text } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Avatar, Box, Button, Image, Text } from "@chakra-ui/react";
+import { Link, useNavigate } from "react-router-dom";
 import { useThreadCard } from "../hooks/useThreadCard";
 import { AiFillHeart, AiOutlineHeart, AiOutlineComment } from "react-icons/ai";
 import moment from "moment";
+import { RxDotFilled } from "react-icons/rx";
+import { useState } from "react";
 
 export function ThreadCard(props: IThreadCard) {
   const navigate = useNavigate();
   const { handlePostLike } = useThreadCard();
-
+  const [showImage, setImage] = useState<boolean>(true);
   return (
     <>
       <Box
         display={"flex"}
         width="100%"
-        borderBottom={"1px solid grey"}
+        // borderBottom={"1px solid grey"}
         padding={"20px"}
       >
-        <Image
-          src={props.user?.picture ?? "/user-placeholder.png"}
+        <Avatar
+          src={props.user?.picture}
           width={"50px"}
           height={"50px"}
           objectFit={"cover"}
-          borderRadius={"50%"}
           marginRight={"20px"}
-          alt="user_profile_image"
         />
 
         <Box display={"flex"} flexDirection={"column"}>
           <Box
-            cursor={"pointer"}
-            onClick={() => navigate(`/detail/${props.id}`)}
+          // cursor={"pointer"}
           >
             <Box display={"flex"} flexDirection={"column"} gap={2}>
-              <Box display={"flex"}>
+              <Box display={"flex"} gap={5}>
                 <Text>{props.user?.full_name}</Text>
-                <Text color="brand.grey">
-                  @{props.user?.username} &#9679;{" "}
+                <Text color="brand.grey" display={"flex"}>
+                  @{props.user?.username}{" "}
+                  <RxDotFilled style={{ marginTop: "5px" }} />
                   {moment(props.posted_at).startOf("minute").fromNow()}
                 </Text>
               </Box>
               <Text>{props.content}</Text>
-              <Image src={props.image} alt="" />
+              {showImage && (
+                <Image
+                  src={props.image}
+                  cursor={"pointer"}
+                  alt="user"
+                  onClick={() => navigate(`/detail/${props.id}`)}
+                  onError={() => setImage(false)}
+                />
+              )}
             </Box>
           </Box>
 
@@ -61,16 +69,18 @@ export function ThreadCard(props: IThreadCard) {
               {props.is_liked ? (
                 <AiFillHeart style={{ fontSize: "1.5em", color: "red" }} />
               ) : (
-                <AiOutlineHeart style={{ fontSize: "1.5em", color: "black" }} />
+                <AiOutlineHeart style={{ fontSize: "1.5em", color: "white" }} />
               )}
               <Text color="brand.grey" ml={"5px"}>
                 {props.likes_count} Like
               </Text>
             </Button>
-            <Button pl={0} variant="none" gap={"2"}>
+            <Link to={`/detail/${props.id}`}>
+            <Button pl={0} variant="none" gap={"2"}  >
               <AiOutlineComment style={{ fontSize: "1.5em" }} />
               <Text color="brand.grey">{props.replies_count} Replies</Text>
             </Button>
+            </Link>
           </Box>
         </Box>
       </Box>

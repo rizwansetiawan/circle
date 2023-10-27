@@ -3,21 +3,35 @@ import {
   BsHeart,
   BsHouseDoor,
   BsSearch,
-  BsFillPersonFill,
   BsHouseDoorFill,
 } from "react-icons/bs";
+import {FaHeart} from "react-icons/fa"
 import { CiLogout } from "react-icons/ci";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
+import { MdPersonOutline } from "react-icons/md";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AUTH_LOGOUT } from "@/stores/rootReducer";
+import { useEffect } from "react";
+import { BiSolidSearch } from "react-icons/bi";
 //import { useLogin } from "../../hooks/loginHook";
 
 export default function SidebarLeftNew() {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch()
+
+  const Logout = () => {
+    dispatch(AUTH_LOGOUT());
+      navigate("/auth/login");
+      console.log("Logout berhasil");
+  };
+
   //const { handleLogout } = useLogin();
   return (
     <>
       <Box position={"fixed"} h={"1vh"} w={"22%"} pt={"10px"} px={"50px"}>
-        <Text fontWeight={"bold"} fontSize={"40px"} color={"#5272F2"}>
+        <Text fontWeight={"bold"} fontSize={"40px"} color={"cyan.400"}>
           Circle
         </Text>
         <Button
@@ -34,9 +48,9 @@ export default function SidebarLeftNew() {
           mt={"20px"}
         >
           {location.pathname === "/" ? (
-            <BsHouseDoorFill color="#5272F2" />
+            <BsHouseDoorFill color="#40C8FF" />
           ) : (
-            <BsHouseDoor color="#5272F2" />
+            <BsHouseDoor color="#40C8FF" />
           )}{" "}
           Home
         </Button>
@@ -52,8 +66,10 @@ export default function SidebarLeftNew() {
           color={"grey.900"}
           mb={"20px"}
         >
-          <BsSearch color="#5272F2" /> Search
+          {location.pathname === "/search" ? <BiSolidSearch style={{fontSize:"26px"}} color="#40C8FF"/> : <BsSearch color="#40C8FF" /> }
+           Search
         </Button>
+
         <Button
           pl={0}
           variant={"none"}
@@ -66,8 +82,13 @@ export default function SidebarLeftNew() {
           color={"grey.900"}
           mb={"20px"}
         >
-          <BsHeart color="#5272F2" /> Follows
+          {location.pathname === "/follows" ? ( 
+          <FaHeart color="#40C8FF" /> 
+          ) : 
+          (<BsHeart color="#40C8FF" /> )}
+          follows
         </Button>
+
         <Button
           pl={0}
           variant={"none"}
@@ -80,22 +101,27 @@ export default function SidebarLeftNew() {
           color={"grey.900"}
           mb={"20px"}
         >
-          <BsFillPersonFill color="#5272F2" /> Profile
+          {location.pathname==="/profile" ? (
+            <CgProfile color={"#40C8FF"}/>
+          ) :(
+            <MdPersonOutline color="#40C8FF" /> 
+          )}
+          Profile
         </Button>
         <Button
           mt={"20px"}
           colorScheme="#5272F2"
           borderStyle={"none"}
           color={"white"}
-          bg={"#5272F2"}
+          bg={"#40C8FF"}
           w={"100%"}
           borderRadius={"20px"}
         >
           Create Post
         </Button>
-
+            {/* <Link to={"/auth/login"}> */}
         <Text
-          //onClick={handleLogout}
+          onClick={Logout}
           cursor={"pointer"}
           mt={"200px"}
           display={"flex"}
@@ -106,8 +132,9 @@ export default function SidebarLeftNew() {
           color={"grey.900"}
           mb={"20px"}
         >
-          <CiLogout color="#5272F2" /> Logout
+          <CiLogout color="#40C8FF" /> Logout
         </Text>
+          {/* </Link> */}
       </Box>
     </>
   );

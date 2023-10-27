@@ -5,7 +5,7 @@ export async function sendMessageToQueue(
   payload: any
 ): Promise<boolean> {
   try {
-    const connection = await amqp.connect("amqp://localhost");
+    const connection = await amqp.connect("amqp://127.0.0.1");
     const channel = await connection.createChannel();
 
     await channel.assertQueue(queueName);

@@ -7,6 +7,7 @@ import ThreadsController from "../controllers/ThreadsController";
 import { authenticate } from "../middlewares/auth";
 import { upload } from "../middlewares/uploadFile";
 import ThreadsQueue from "../queues/ThreadsQueue";
+import searchController from "../controllers/searchController";
 
 const router = express.Router();
 
@@ -14,13 +15,10 @@ router.get("/threads", authenticate, ThreadsController.find);
 router.get("/thread/:id", authenticate, ThreadsController.findOne);
 router.post("/thread", authenticate, upload("image"), ThreadsQueue.create);
 
-router.get("/follows", authenticate, FollowsController.find);
-router.post("/follow", authenticate, FollowsController.create);
-router.delete(
-  "/follow/:followed_user_id",
-  authenticate,
-  FollowsController.delete
-);
+router.get("/followes", authenticate, FollowsController.findRandom);
+router.get("/follow", authenticate, FollowsController.find) // Mendapatkan daftar follow setelah melewati proses autentikasi
+router.post("/follow", authenticate, FollowsController.create) // Membuat follow baru setelah melewati proses autentikasi
+router.delete("/follow/:followed_user_id", authenticate, FollowsController.delete) // Menghapus follow dari pengguna setelah melewati proses autentikasi
 
 router.get("/replies", authenticate, RepliesController.find);
 router.post("/reply", authenticate, RepliesController.create);
@@ -31,6 +29,8 @@ router.delete("/like/:thread_id", authenticate, LikesController.delete);
 router.post("/auth/register", AuthController.register);
 router.post("/auth/login", AuthController.login);
 router.get("/auth/check", authenticate, AuthController.check);
+
+router.get("/search", authenticate, searchController.findAll)
 
 router.get("/notifications", (req: express.Request, res: express.Response) => {
   res.setHeader("Content-Type", "text/event-stream");

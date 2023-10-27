@@ -52,7 +52,7 @@ export default function Home() {
                 />
                 <Input
                   type="submit"
-                  backgroundColor={"#5272F2"}
+                  backgroundColor={"cyan.400"}
                   color={"white"}
                   colorScheme="green"
                   value={"Post"}

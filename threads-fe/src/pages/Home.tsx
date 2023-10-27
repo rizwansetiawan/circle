@@ -1,6 +1,6 @@
 import { ThreadCard, useThreads } from "@/features/thread";
-import { IThreadCard } from "@/interfaces/thread";
 import { RootState } from "@/stores/types/rootState";
+import { CloseIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
@@ -14,13 +14,13 @@ import { useSelector } from "react-redux";
 
 export default function Home() {
   const auth = useSelector((state: RootState) => state.auth);
-  const { handleChange, handlePost, fileInputRef, handleButtonClick, threads } =
+  const { handleChange, handlePost, fileInputRef, handleButtonClick, threads,form,handleImageChange,preview,handleClosePreview } =
     useThreads();
 
   return (
     <>
       <Box p={"20px"}>
-        <Heading color={"#5272F2"} fontSize="2em" mb={"20px"}>
+        <Heading color={"cyan.400"} fontSize="2em" mb={"20px"}>
           Home
         </Heading>
         <Box
@@ -31,7 +31,7 @@ export default function Home() {
           alignItems={"center"}
           flexDirection={"row"}
         >
-          <Avatar objectFit={"cover"} name="Segun Adebayo" src={auth.picture} />
+          <Avatar objectFit={"cover"} name={auth.full_name} src={auth.picture} />
           <form
             onSubmit={handlePost}
             encType="multipart/form-data"
@@ -46,7 +46,7 @@ export default function Home() {
               <Input
                 onChange={handleChange}
                 name="content"
-                //value={formData.content}
+                value={form.content}
                 placeholder="What is happening?!"
                 border={"none"}
                 width={"100%"}
@@ -54,11 +54,11 @@ export default function Home() {
               />
               <Button
                 variant={"ghost"}
-                color={"#5272F2"}
+                color={"cyan.400"}
                 onClick={handleButtonClick}
-                style={{ backgroundColor: "transparent", cursor: "pointer" }}
+                // style={{ backgroundColor: "transparent", cursor: "pointer" }}
               >
-                <BiSolidImageAdd size={35} />
+                <BiSolidImageAdd size={45} />
               </Button>
               <Input
                 display={"none"}
@@ -68,16 +68,27 @@ export default function Home() {
                 border={"none"}
                 width={"50%"}
                 ref={fileInputRef}
+                accept=".jpeg, .jpg, .png, .svg, .gif"
+                // onInput={()=>alert("gambar telah terpilih")}
+                onInput={handleImageChange}
               />
               <Button
                 colorScheme="#5272F2"
                 type="submit"
                 borderRadius={"20px"}
-                bg={"#5272F2"}
+                bg={"cyan.400"}
                 color={"white"}
               >
                 Post
               </Button>
+              <Box>
+                {preview && 
+                <>
+                <img src={preview} alt="" /> 
+                <CloseIcon onClick={handleClosePreview} cursor={"pointer"}/>
+                </>
+                  }
+              </Box>
             </FormControl>
           </form>
         </Box>

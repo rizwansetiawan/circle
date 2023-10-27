@@ -4,14 +4,15 @@ import { Navigate, Outlet, Route, Routes, useNavigate } from "react-router-dom";
 import Main from "./layouts/Main";
 import { API, setAuthToken } from "./libs/api";
 import Detail from "./pages/Detail";
-import Follows from "./pages/Follows";
+import Followers from "./pages/Follows";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { AUTH_CHECK, AUTH_ERROR } from "./stores/rootReducer";
 import { RootState } from "./stores/types/rootState";
-import { Button } from "@chakra-ui/react";
+import { Button, Heading } from "@chakra-ui/react";
 import { toast } from "react-toastify";
+import Search from "./components/search";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -98,7 +99,19 @@ export default function App() {
     <>
       {isLoading ? null : (
         <Routes>
-          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route
+            path="*"
+            element={
+              <Heading
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                h={"100vh"}
+              >
+                404 Not Found
+              </Heading>
+            }
+          />
           <Route path="/" element={<IsLogin />}>
             <Route
               element={
@@ -119,12 +132,21 @@ export default function App() {
             <Route
               element={
                 <Main>
-                  <Follows />
+                  <Followers />
                 </Main>
               }
               path="/follows"
             />
+            <Route
+              element={
+                <Main>
+                  <Search />
+                </Main>
+              }
+              path="/search"
+            />
           </Route>
+          
           <Route path="/" element={<IsNotLogin />}>
             <Route
               element={

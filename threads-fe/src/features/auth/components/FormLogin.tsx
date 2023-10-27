@@ -1,42 +1,234 @@
-import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, Flex, FormControl, FormLabel, Heading, Input, InputGroup, InputRightElement, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import { useLogin } from "../hooks/useLogin";
-
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useState } from "react";
+import {Link} from "react-router-dom"
+import { COBA_DULU_KALI } from "@/stores/rootReducer";
+import { useDispatch } from "react-redux";
+// import { ALERT_NOTIF } from "@/stores/rootReducer";
 export function FormLogin() {
   const { handleChange, handleLogin } = useLogin();
+  const [showPassword, setShowPassword] = useState(false);
+
+const dispatch = useDispatch() // untuk men trigger atau mengacu / mengirim notif ke store nya menggunakan useDispatch
 
   return (
-    <FormControl
-      isRequired
-      display={"flex"}
-      flexDirection={"column"}
-      gap={3}
-      width={"300px"}
-    >
-      <Text color={"brand.blue"} fontSize={"4xl"} fontWeight={"bold"}>
-        Circle
-      </Text>
-      <Text fontSize={"2xl"} fontWeight={"bold"}>
-        Login To Circle
-      </Text>
-      <Input placeholder="Email" name="email" onChange={handleChange} />
-      <Input
-        type="password"
-        placeholder="Password"
-        name="password"
-        onChange={handleChange}
-      />
-      <Box display="flex" justifyContent={"flex-end"}>
-        <Text>Forgot password?</Text>
-      </Box>
-      <Button
-        borderRadius={"full"}
-        backgroundColor={"brand.blue"}
-        colorScheme="#5272F2"
-        color={"white"}
-        onClick={handleLogin}
+      <Flex
+        minH={"100vh"}
+        mt={5}
+        // align={"center"}
+        justify={"center"}
+        // bg={useColorModeValue("gray.50", "gray.800")}
       >
-        Login
-      </Button>
-    </FormControl>
-  );
+        <Stack maxW={"lg"}>
+          <Stack align={"left"} textAlign={"center"}>
+            <Heading fontSize={"8xl"} fontFamily={"cursive"} color={"cyan.400"}>
+              circLe
+            </Heading>
+            <Text fontSize={"lg"} mt={"-5"} color={"gray.600"}>
+              login to circle
+            </Text>
+          </Stack>
+          <Box
+            rounded={"lg"}
+            w={"400px"}
+            bg={useColorModeValue("white", "gray.700")}
+            boxShadow={"lg"}
+            p={4}
+          >
+            <Stack spacing={4}>
+              <FormControl id="email">
+                <FormLabel></FormLabel>
+                <Input
+                  type="email"
+                  placeholder="Email address"
+                  name="email"
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <FormControl id="password">
+                <InputGroup>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="password"
+                    name="password"
+                    onChange={handleChange}
+                  />
+                  <InputRightElement h={"full"}>
+                    <Button
+                      variant={"ghost"}
+                      onClick={() =>
+                        setShowPassword((showPassword: any) => !showPassword)
+                      }
+                    >
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <Stack spacing={10}>
+                <Stack
+                  direction={{ base: "column", sm: "row" }}
+                  align={"start"}
+                  justify={"space-between"}
+                >
+                  <Checkbox>Remember me</Checkbox>
+                  <Text color={"blue.400"}>Forgot password?</Text>
+                </Stack>
+                <Button
+                  onClick={handleLogin}
+                  bg={"cyan.600"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                >
+                  Sign in
+                </Button>
+                <Box display={"flex"} mt={"-5"} gap={2}>
+                  <Text textAlign={"center"}>Not have ready account ? </Text>
+                  <Link to={"/auth/register"}>
+                    {" "}
+                    <Text
+                      display={"flex"}
+                      textAlign={"center"}
+                      color={"blue.400"}
+                      cursor={"pointer"}
+                    >
+                      {" "}
+                      Sign up
+                    </Text>
+                  </Link>
+                  {/* <Button onClick={()=>dispatch(COBA_DULU_KALI())}>
+                  dispatch
+                  </Button> */}
+                </Box>
+              </Stack>
+            </Stack>
+          </Box>
+        </Stack>
+      </Flex>
+    );
 }
+// "use client";
+
+// import {
+//   Flex,
+//   Box,
+//   FormControl,
+//   FormLabel,
+//   Input,
+//   Checkbox,
+//   Stack,
+//   Button,
+//   Heading,
+//   Text,
+//   useColorModeValue,
+//   InputRightElement,
+//   InputGroup,
+// } from "@chakra-ui/react";
+// import { useLogin } from "../hooks/useLogin";
+// import { Link } from "react-router-dom";
+// import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+// import { useState } from "react";
+
+// export default function FormLogin() {
+//   const [showPassword, setShowPassword] = useState(false);
+//   const { handleChange, handleLogin } = useLogin();
+  // return (
+  //   <Flex
+  //     minH={"100vh"}
+  //     mt={5}
+  //     // align={"center"}
+  //     justify={"center"}
+  //     bg={useColorModeValue("gray.50", "gray.800")}
+  //   >
+  //     <Stack maxW={"lg"}>
+  //       <Stack align={"left"} textAlign={"center"}>
+  //         <Heading fontSize={"8xl"} fontFamily={"cursive"} color={"cyan.400"}>
+  //           circLe
+  //         </Heading>
+  //         <Text fontSize={"lg"} mt={"-5"} color={"gray.600"}>
+  //           login to circle
+  //         </Text>
+  //       </Stack>
+  //       <Box
+  //         rounded={"lg"}
+  //         w={"400px"}
+  //         bg={useColorModeValue("white", "gray.700")}
+  //         boxShadow={"lg"}
+  //         p={4}
+  //       >
+  //         <Stack spacing={4}>
+  //           <FormControl id="email">
+  //             <FormLabel></FormLabel>
+  //             <Input
+  //               type="email"
+  //               placeholder="Email address"
+  //               name="email"
+  //               onChange={handleChange}
+  //             />
+  //           </FormControl>
+  //           <FormControl id="password">
+  //             <InputGroup>
+  //               <Input
+  //                 type={showPassword ? "text" : "password"}
+  //                 placeholder="password"
+  //                 name="password"
+  //                 onChange={handleChange}
+  //               />
+  //               <InputRightElement h={"full"}>
+  //                 <Button
+  //                   variant={"ghost"}
+  //                   onClick={() =>
+  //                     setShowPassword((showPassword: any) => !showPassword)
+  //                   }
+  //                 >
+  //                   {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+  //                 </Button>
+  //               </InputRightElement>
+  //             </InputGroup>
+  //           </FormControl>
+  //           <Stack spacing={10}>
+  //             <Stack
+  //               direction={{ base: "column", sm: "row" }}
+  //               align={"start"}
+  //               justify={"space-between"}
+  //             >
+  //               <Checkbox>Remember me</Checkbox>
+  //               <Text color={"blue.400"}>Forgot password?</Text>
+  //             </Stack>
+  //             <Button
+  //               onClick={handleLogin}
+  //               bg={"cyan.600"}
+  //               color={"white"}
+  //               _hover={{
+  //                 bg: "blue.500",
+  //               }}
+  //             >
+  //               Sign in
+  //             </Button>
+  //             <Box display={"flex"} mt={"-5"} gap={2}>
+  //               <Text textAlign={"center"}>Not have ready account ? </Text>
+  //               <Link to={"/register"}>
+  //                 {" "}
+  //                 <Text
+  //                   display={"flex"}
+  //                   textAlign={"center"}
+  //                   color={"blue.400"}
+  //                   cursor={"pointer"}
+  //                 >
+  //                   {" "}
+  //                   Sign up
+  //                 </Text>
+  //               </Link>
+  //             </Box>
+  //           </Stack>
+  //         </Stack>
+  //       </Box>
+  //     </Stack>
+  //   </Flex>
+  // );
+// }
+
+

@@ -1,45 +1,85 @@
-import { Button, FormControl, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, InputGroup, InputRightElement, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import { useRegister } from "../hooks/useRegister";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function FormRegister() {
   const { handleChange, handleRegister } = useRegister();
-
+  const [showPassword, setShowPassword] = useState(false)
   return (
-    <FormControl
-      isRequired
-      display={"flex"}
-      flexDirection={"column"}
-      gap={3}
-      width={"300px"}
-    >
-      <Text color={"brand.blue"} fontSize={"4xl"} fontWeight={"bold"}>
-        Circle
-      </Text>
-      <Text fontSize={"2xl"} fontWeight={"bold"}>
-        Create Account Circle
-      </Text>
-      <Input
-        placeholder="First name"
-        name="full_name"
-        onChange={handleChange}
-      />
-      <Input placeholder="Username" name="username" onChange={handleChange} />
-      <Input placeholder="Email" name="email" onChange={handleChange} />
-      <Input
-        type="password"
-        placeholder="Password"
-        name="password"
-        onChange={handleChange}
-      />
-      <Button
-        backgroundColor={"brand.blue"}
-        colorScheme="white"
-        color={"white"}
-        onClick={handleRegister}
-        borderRadius={"full"}
+    <Flex
+      minH={'100vh'}
+      // align={'center'}
+      mt={5}
+      justify={'center'}
+      // bg={useColorModeValue('gray.50', 'gray.800')}
       >
-        Create
-      </Button>
-    </FormControl>
+      <Stack  maxW={'lg'} >
+        <Stack align={'center'}>
+          <Heading fontSize={'8xl'} fontFamily={"cursive"} color={"cyan.400"}>
+            circLe
+          </Heading>
+          <Text fontSize={'lg'} mt={"-5"} color={'gray.600'}>
+            create account circle
+          </Text>
+        </Stack>
+        <Box
+          rounded={'lg'}
+          bg={useColorModeValue('white', 'gray.700')}
+          boxShadow={'lg'}
+          p={4}
+          w={"400px"}
+          >
+          
+          <Stack spacing={4}>
+          <FormControl id="fullname" >
+              <FormLabel></FormLabel>
+              <Input type="text" placeholder='fullname' name='full_name' onChange={handleChange}/>
+            </FormControl>
+            <FormControl id="username">
+              <FormLabel></FormLabel>
+              <Input type="text" placeholder='@username' name="username" onChange={handleChange} />
+            </FormControl>
+            <FormControl id="email" >
+              <FormLabel></FormLabel>
+              <Input type="email" placeholder='email' name="email" onChange={handleChange}/>
+            </FormControl>
+            <FormControl id="password">
+              <FormLabel></FormLabel>
+              <InputGroup>
+                <Input type={showPassword ? 'text' : 'password'} placeholder='password' name="password" onChange={handleChange} />
+                <InputRightElement h={'full'}>
+                  <Button
+                    variant={'ghost'}
+                    onClick={() => setShowPassword((showPassword) => !showPassword)}>
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
+            <Stack spacing={10} pt={2}>
+              <Button onClick={handleRegister}
+                loadingText="Submitting"
+                size="lg"
+                bg={'cyan.400'}
+                color={'white'}
+                _hover={{
+                  bg: 'blue.500',
+                }}>
+                Create Account
+              </Button>
+            </Stack>
+            <Stack >
+              <Text align={'left'}>
+                Already have account? <Link to={'/auth/login'}>
+               <Text display={"inline"} color={"blue.600"}> Sign in</Text>
+                  </Link>
+              </Text>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
+    </Flex>
   );
 }

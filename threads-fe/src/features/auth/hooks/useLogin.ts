@@ -1,5 +1,5 @@
 import { IUserLogin } from '@/interfaces/user';
-import { API, setAuthToken } from '@/libs/api';
+import { API } from '@/libs/api';
 import { useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { AUTH_LOGIN } from '@/stores/rootReducer';
@@ -26,7 +26,7 @@ export function useLogin() {
         try {
             const response = await API.post('/auth/login', form)
             dispatch(AUTH_LOGIN(response.data))
-            // console.log("login berhasil", response.data.token)
+            console.log("berhasil login:",response.data.user);
             navigate('/')
         } catch (err) {
             console.log(err)

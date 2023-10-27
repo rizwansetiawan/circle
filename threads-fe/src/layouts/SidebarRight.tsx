@@ -18,9 +18,12 @@ import {
   AiFillFacebook,
   AiFillInstagram,
 } from "react-icons/ai";
+import { useState } from "react";
+import { RxDotFilled } from "react-icons/rx";
 
 export default function SidebarRight() {
   const auth = useSelector((state: RootState) => state.auth);
+  const [showImage, setImage] = useState<Boolean>(true);
 
   return (
     <>
@@ -29,13 +32,16 @@ export default function SidebarRight() {
           <Heading size="sm" mb={"20px"}>
             My Profile
           </Heading>
-          <Image
-            h={"100px"}
-            w={"100%"}
-            objectFit={"cover"}
-            src={auth.picture}
-            borderRadius="lg"
-          />
+          {showImage && (
+            <Image
+              h={"100px"}
+              w={"100%"}
+              objectFit={"cover"}
+              src={auth.picture}
+              onError={() => setImage(false)}
+              borderRadius="lg"
+            />
+          )}
           <Stack mt="3" spacing="1">
             <Box display={"flex"} justifyContent={"space-between"}>
               <Avatar
@@ -43,10 +49,10 @@ export default function SidebarRight() {
                 mt={"-12"}
                 ml={"20px"}
                 size="lg"
-                name="Prosper Otemuyiwa"
+                name={auth.full_name}
                 src={auth.picture}
               ></Avatar>
-              <Button bg={"#5272F2"} color={"white"} borderRadius={"20px "}>
+              <Button bg={"#40C8FF"} color={"white"} borderRadius={"20px "}>
                 Edit Profile
               </Button>
             </Box>
@@ -105,7 +111,7 @@ export default function SidebarRight() {
               colorScheme="#5272F2"
               type="submit"
               borderRadius={"20px"}
-              bg={"#5272F2"}
+              bg={"#40C8FF"}
               color={"white"}
             >
               Follow
@@ -136,7 +142,7 @@ export default function SidebarRight() {
               colorScheme="#5272F2"
               type="submit"
               borderRadius={"20px"}
-              bg={"#5272F2"}
+              bg={"#40C8FF"}
               color={"white"}
             >
               Follow
@@ -167,7 +173,7 @@ export default function SidebarRight() {
               colorScheme="#5272F2"
               type="submit"
               borderRadius={"20px"}
-              bg={"#5272F2"}
+              bg={"#40C8FF"}
               color={"white"}
             >
               Follow
@@ -176,16 +182,30 @@ export default function SidebarRight() {
         </CardBody>
       </Card>
       <Card p={"10px"} m={"20px"} borderRadius={"10px"}>
-        <CardBody>
-          <Flex gap={3} alignItems={"center"}>
-            <Heading fontSize={"smaller"}>Developed by Rifki m ramdan</Heading>
-            <Text>&#9679;</Text>
-            <AiFillGithub />
-            <AiFillLinkedin />
-            <AiFillFacebook />
-            <AiFillInstagram />
-          </Flex>
-        </CardBody>
+      <Box
+          maxW={"370px"}
+          h={"60px"}
+          w={"full"}
+          // bg={useColorModeValue("white", "gray.800")}
+          // boxShadow={"2xl"}
+          rounded={"md"}
+          overflow={"hidden"}
+        >
+          <Box h={"100%"} w={"100%"} bg={"transparent"} ms={4}>
+            <Text fontSize={14} display={"flex"} textAlign={"center"}>
+              {" "}
+              Developed By Rizwan Setiawan 
+              <Flex ms={1} mt={1} gap={2} cursor={"pointer"}>
+                {" "}
+                <RxDotFilled/> <AiFillGithub /> <AiFillLinkedin /> <AiFillFacebook />{" "}
+                <AiFillInstagram />{" "}
+              </Flex>{" "}
+            </Text>
+            <Text fontSize={12} display={"flex"} >
+              Powered By Dumbways indonesia <RxDotFilled style={{marginTop:"5px"}} />  #1coding bootcamp
+            </Text>
+          </Box>
+        </Box>
       </Card>
     </>
   );

@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-
+import {BiArrowBack} from "react-icons/bi"
 export default function Detail() {
   const auth = useSelector((state: RootState) => state.auth);
   const { thread, handlePost, handleChange, replies } = useThreadDetail();
@@ -20,17 +20,19 @@ export default function Detail() {
   return (
     <>
       <Box display={"flex"} justifyContent={"center"}>
+        
         <Box
           display={"flex"}
           alignItems={"center"}
           flexDirection={"column"}
           width="600px"
-          borderRight={"1px solid"}
-          borderLeft={"1px solid"}
-          borderColor={"brand.grey"}
+          // borderRight={"1px solid"}
+          // borderLeft={"1px solid"}
+          // borderColor={"brand.grey"}
           padding={"20px"}
         >
-          <Text bg={"yellow"}>Status</Text>
+          {/* <BiArrowBack style={{color:"white",cursor:"pointer",position:"absolute",left:400}} /> */}
+          {/* <Text bg={"yellow"}>Status</Text> */}
           <ThreadCard
             id={thread?.id}
             user={thread?.user}
@@ -41,7 +43,9 @@ export default function Detail() {
             replies_count={thread?.replies_count}
             is_liked={thread?.is_liked}
           />
+
           <Flex marginTop={"20px"} gap={4} w={"100%"}>
+          
             <Avatar objectFit={"cover"} src={auth.picture} />
             <form onSubmit={handlePost} encType="multipart/form-data">
               <FormControl display={"flex"} flexDirection={"column"} gap={2}>
@@ -61,7 +65,7 @@ export default function Detail() {
                     borderRadius={"full"}
                     cursor={"pointer"}
                     type="submit"
-                    backgroundColor={"#5272F2"}
+                    backgroundColor={"cyan.400"}
                     color={"white"}
                     colorScheme="green"
                     value={"Reply"}

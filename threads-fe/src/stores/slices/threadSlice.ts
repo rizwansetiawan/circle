@@ -10,10 +10,7 @@ export const threadSlice = createSlice({
     GET_THREADS: (state, action) => {
       state.threads = action.payload;
     },
-    SET_THREAD_LIKE: (
-      state,
-      action: { payload: { id: number; isLiked: boolean } }
-    ) => {
+    SET_THREAD_LIKE: (state,action: { payload: { id: number; isLiked: boolean } }) => {
       const { id, isLiked } = action.payload;
 
       state.threads = state.threads.map((thread) => {

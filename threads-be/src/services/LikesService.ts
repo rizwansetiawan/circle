@@ -1,4 +1,4 @@
-import { Repository, Tree } from "typeorm";
+import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Like } from "../entities/Like";
 

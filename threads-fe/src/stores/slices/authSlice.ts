@@ -14,7 +14,7 @@ const initialAuthState: IUser = {
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name:"auth",
   initialState: initialAuthState,
   reducers: {
     AUTH_LOGIN: (state, action) => {
@@ -70,5 +70,9 @@ export const authSlice = createSlice({
     AUTH_LOGOUT: () => {
       localStorage.removeItem("token");
     },
+    ALERT_NOTIF:()=>{
+      console.log("berhasil dapet dari redux");
+      
+    }
   },
 });

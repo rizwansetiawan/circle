@@ -160,7 +160,7 @@ export default function Main({ children }: { children: ReactNode }) {
             </Text>
             <CardBody display={"flex"} gap={2}>
               <Avatar
-                src="https://static1.personality-database.com/profile_images/4b05b8222e1f47d1b721ebe0800c9169.png"
+                src="https://static1.personality-database.com/proile_images/4b05b8222e1f47d1b721ebe0800c9169.png"
                 border={"2px solid black"}
               />
               <Box display={"flex"} flexDirection={"column"}>

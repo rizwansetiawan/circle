@@ -26,17 +26,17 @@ class FollowsService {
               id: loginSession.user.id,
             },
           },
-          relations: ["followed"],
+          relations: ["followed", "follower"],
         });
 
         return follows.map((follow) => ({
           id: follow.id,
           user_id: follow.followed.id,
           username: follow.followed.username,
-          full_name: follow.followed.full_name,
+          name: follow.followed.full_name,
           email: follow.followed.email,
-          picture: follow.followed.picture,
-          description: follow.followed.description,
+          profile_picture: follow.followed.picture,
+          profile_deskripsi: follow.followed.description,
           is_followed: true,
         }));
       } else if (queryType === "followers") {
@@ -47,7 +47,7 @@ class FollowsService {
               id: loginSession.user.id,
             },
           },
-          relations: ["follower"],
+          relations: ["followed", "follower"],
         });
 
         return await Promise.all(
@@ -67,10 +67,10 @@ class FollowsService {
               id: follow.id,
               user_id: follow.follower.id,
               username: follow.follower.username,
-              full_name: follow.follower.full_name,
+              name: follow.follower.full_name,
               email: follow.follower.email,
-              picture: follow.follower.picture,
-              description: follow.follower.description,
+              profile_picture: follow.follower.picture,
+              profile_deskripsi: follow.follower.description,
               is_followed: isFollowed > 0,
             };
           })
@@ -97,6 +97,8 @@ class FollowsService {
           },
         },
       });
+      console.log("isFollowExistisFollowExistisFollowExistisFollowExist",isFollowExist)
+
 
       if (isFollowExist > 0) {
         throw new Error("You already follow this user!");
@@ -124,6 +126,7 @@ class FollowsService {
           id: reqBody.followed_user_id,
         },
       });
+      console.log("folloewdfollowedfollowedfollowed",follow)
 
       await this.followRepository.save(follow);
 
@@ -134,8 +137,34 @@ class FollowsService {
     } catch (error) {
       throw new Error(error.message);
     }
-  }
+}
 
+async findRandom(reqQuery?: any): Promise<any> {
+        try {
+            let follows = Follow
+         const limit = parseInt(reqQuery.limit ?? 0)
+          const users = await this.userRepository
+          .createQueryBuilder('users')
+          .select()
+          .orderBy('RANDOM()')
+          .take(limit)
+          .getMany();
+ 
+ 
+          return users?.map((follow) => ({
+            id: follow.id,
+            user_id: follow.id,
+            username: follow.username,
+            name: follow.full_name,
+            email: follow.email,
+            profile_picture: follow.picture,
+            profile_deskripsi: follow.description,
+                is_followed: true
+          }))
+        } catch (error) {
+         throw new Error(error.message)
+        }
+     }
   async delete(followedUserId: number, loginSession: any): Promise<any> {
     try {
       const follow = await this.followRepository.findOne({
