@@ -10,7 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { AUTH_CHECK, AUTH_ERROR } from "./stores/rootReducer";
 import { RootState } from "./stores/types/rootState";
-import { Button, Heading } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 import Search from "./components/search";
 

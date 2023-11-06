@@ -1,5 +1,4 @@
 import { ThreadCard, useThreadDetail } from "@/features/thread";
-import { IThreadCard } from "@/interfaces/thread";
 import { IUser } from "@/interfaces/user";
 import { RootState } from "@/stores/types/rootState";
 import {
@@ -12,7 +11,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-import {BiArrowBack} from "react-icons/bi"
 export default function Detail() {
   const auth = useSelector((state: RootState) => state.auth);
   const { thread, handlePost, handleChange, replies } = useThreadDetail();
@@ -26,22 +24,17 @@ export default function Detail() {
           alignItems={"center"}
           flexDirection={"column"}
           width="600px"
-          // borderRight={"1px solid"}
-          // borderLeft={"1px solid"}
-          // borderColor={"brand.grey"}
           padding={"20px"}
         >
-          {/* <BiArrowBack style={{color:"white",cursor:"pointer",position:"absolute",left:400}} /> */}
-          {/* <Text bg={"yellow"}>Status</Text> */}
           <ThreadCard
-            id={thread?.id}
-            user={thread?.user}
-            content={thread?.content}
-            posted_at={thread?.posted_at}
-            image={thread?.image}
-            likes_count={thread?.likes_count}
-            replies_count={thread?.replies_count}
-            is_liked={thread?.is_liked}
+            id={thread?.id as number}
+            user={thread?.user as IUser }
+            content={thread?.content as string }
+            posted_at={thread?.posted_at as string }
+            image={thread?.image as string}
+            likes_count={thread?.likes_count as number }
+            replies_count={thread?.replies_count as number }
+            is_liked={thread?.is_liked as boolean }
           />
 
           <Flex marginTop={"20px"} gap={4} w={"100%"}>

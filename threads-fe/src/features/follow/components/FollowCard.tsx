@@ -1,6 +1,6 @@
 import { IFollow } from "@/interfaces/follow";
 import { API } from "@/libs/api";
-import { SET_FOLLOW } from "@/stores/rootReducer";
+import { SET_FOLLOWERS } from "@/stores/rootReducer";
 import { Box, Button, Image, Text } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 
@@ -16,11 +16,11 @@ export function FollowCard(props: IFollow) {
         await API.post(`/follow`, {
           followed_user_id: followedUserId,
         });
-        dispatch(SET_FOLLOW({ id: id, isFollowed: isFollowed }));
+        dispatch(SET_FOLLOWERS({ id: id, isFollowed: isFollowed }));
         // console.log("berhasil follow!", response.data);
       } else {
         await API.delete(`/follow/${followedUserId}`);
-        dispatch(SET_FOLLOW({ id: id, isFollowed: isFollowed }));
+        dispatch(SET_FOLLOWERS({ id: id, isFollowed: isFollowed }));
         // console.log("berhasil unfollow!", response.data);
       }
     } catch (err) {

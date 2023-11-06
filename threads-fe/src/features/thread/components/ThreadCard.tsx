@@ -16,7 +16,6 @@ export function ThreadCard(props: IThreadCard) {
       <Box
         display={"flex"}
         width="100%"
-        // borderBottom={"1px solid grey"}
         padding={"20px"}
       >
         <Avatar
@@ -29,7 +28,6 @@ export function ThreadCard(props: IThreadCard) {
 
         <Box display={"flex"} flexDirection={"column"}>
           <Box
-          // cursor={"pointer"}
           >
             <Box display={"flex"} flexDirection={"column"} gap={2}>
               <Box display={"flex"} gap={5}>
@@ -45,7 +43,6 @@ export function ThreadCard(props: IThreadCard) {
                 <Image
                   src={props.image}
                   cursor={"pointer"}
-                  // h={"300px"}
                   objectFit={"contain"}
                   alt="user"
                   onClick={() => navigate(`/detail/${props.id}`)}
@@ -60,7 +57,6 @@ export function ThreadCard(props: IThreadCard) {
             gap={5}
             marginTop={"10px"}
             justifyContent={"space-between"}
-            // bg="red"
           >
             <Button
               pl={0}

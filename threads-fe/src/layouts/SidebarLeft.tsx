@@ -12,9 +12,7 @@ import { MdPersonOutline } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AUTH_LOGOUT } from "@/stores/rootReducer";
-import { useEffect } from "react";
 import { BiSolidSearch } from "react-icons/bi";
-//import { useLogin } from "../../hooks/loginHook";
 
 export default function SidebarLeftNew() {
   const navigate = useNavigate();

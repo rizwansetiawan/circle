@@ -34,9 +34,7 @@ export function useThreads() {
       console.log("Thread added successfully!", response);
     } catch (error) {
       
-    } finally{
-
-    }
+    } 
     
     getThreads();
   }
