@@ -1,11 +1,42 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Thread } from "../entities/Thread";
+import { Request, Response } from "express";
+import { createThreadSchema } from "../utils/validators/thread";
 
 class ThreadsService {
   private readonly threadRepository: Repository<Thread> =
     AppDataSource.getRepository(Thread);
+    
+    async create(req: Request, res: Response) {
+      const filename = req.file.path
+      // const filename = res.locals.filename
+      const loginSession = res.locals.loginSession
+      const data = {
+          content: req.body.content,
+          image: filename
+      }
 
+      const { error } = createThreadSchema.validate(data)
+      if (error) {
+          return res.status(400).json(error)
+      }
+
+      const thread = this.threadRepository.create({
+          content : data.content,
+          image : data.image,
+          user : { id: loginSession.user.id }
+      })
+      const createdThread = this.threadRepository.save(thread)
+      return res.status(200).json(createdThread)
+      // const data = req.body
+      // const thread = this.threadRepository.create({
+      //     content : data.content,
+      //     image : data.image
+      // })
+      // const createdThread = this.threadRepository.save(thread)
+      // return res.status(200).json(createdThread)
+  }
   async find(reqQuery?: any, loginSession?: any): Promise<any> {
     try {
       const limit = parseInt(reqQuery.limit ?? 0);

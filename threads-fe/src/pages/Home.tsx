@@ -8,21 +8,25 @@ import {
   FormControl,
   Heading,
   Input,
+  useColorMode,
 } from "@chakra-ui/react";
 import { BiSolidImageAdd } from "react-icons/bi";
 import { useSelector } from "react-redux";
-
+import { SunIcon,MoonIcon } from "@chakra-ui/icons";
 export default function Home() {
   const auth = useSelector((state: RootState) => state.auth);
   const { handleChange, handlePost, fileInputRef, handleButtonClick, threads,form,handleImageChange,preview,handleClosePreview } =
     useThreads();
-
+    const {toggleColorMode,colorMode} = useColorMode()
+    const isDark = colorMode === "dark"
   return (
     <>
       <Box p={"20px"}>
         <Heading color={"cyan.400"} fontSize="2em" mb={"20px"}>
           Home
+          <Button float={"right"} onClick={toggleColorMode} bg="transparent" > {isDark ? <SunIcon/>  : <MoonIcon/> } </Button>
         </Heading>
+        
         <Box
           bg={"transparent"}
           mt={"20px"}
@@ -68,7 +72,7 @@ export default function Home() {
                 border={"none"}
                 width={"50%"}
                 ref={fileInputRef}
-                accept=".jpeg, .jpg, .png, .svg, .gif"
+                accept=".jpeg, .jpg, .png, .svg, .gif, .avif"
                 // onInput={()=>alert("gambar telah terpilih")}
                 onInput={handleImageChange}
               />

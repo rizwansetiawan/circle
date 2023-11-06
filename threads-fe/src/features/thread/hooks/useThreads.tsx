@@ -69,7 +69,7 @@ export function useThreads() {
 
   //PR
   const [preview,setPreview] = useState<string | null>()
-  const [dataImage,setDataImage] = useState< any  >(null)
+  const [dataImage,setDataImage] = useState< any  >(null) //input file
 
   const handleImageChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
       const selectedImage  = event.target.files && event.target.files[0]

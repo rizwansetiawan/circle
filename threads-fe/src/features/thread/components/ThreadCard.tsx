@@ -45,6 +45,8 @@ export function ThreadCard(props: IThreadCard) {
                 <Image
                   src={props.image}
                   cursor={"pointer"}
+                  // h={"300px"}
+                  objectFit={"contain"}
                   alt="user"
                   onClick={() => navigate(`/detail/${props.id}`)}
                   onError={() => setImage(false)}

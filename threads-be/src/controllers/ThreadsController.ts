@@ -28,6 +28,16 @@ class ThreadsController {
         .json({ error: error.message });
     }
   }
+  create(req: Request, res:Response){
+    ThreadsService.create(req,res);
 }
+// delete(req: Request, res:Response){
+//     ThreadsService.delete(req,res);
+// }
+// update(req: Request, res:Response){
+//     ThreadsService.update(req,res);
+// }
+}
+
 
 export default new ThreadsController();

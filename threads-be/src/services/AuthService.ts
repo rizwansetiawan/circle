@@ -1,5 +1,5 @@
-import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
+import bcrypt = require("bcrypt")
+import jwt = require("jsonwebtoken") ;
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { User } from "../entities/User";

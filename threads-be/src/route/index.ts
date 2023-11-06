@@ -1,4 +1,4 @@
-import * as express from "express";
+import express = require("express");
 import AuthController from "../controllers/AuthController";
 import FollowsController from "../controllers/FollowsController";
 import LikesController from "../controllers/LikesController";
@@ -6,14 +6,13 @@ import RepliesController from "../controllers/RepliesController";
 import ThreadsController from "../controllers/ThreadsController";
 import { authenticate } from "../middlewares/auth";
 import { upload } from "../middlewares/uploadFile";
-import ThreadsQueue from "../queues/ThreadsQueue";
 import searchController from "../controllers/searchController";
 
 const router = express.Router();
 
 router.get("/threads", authenticate, ThreadsController.find);
 router.get("/thread/:id", authenticate, ThreadsController.findOne);
-router.post("/thread", authenticate, upload("image"), ThreadsQueue.create);
+router.post("/thread", authenticate, upload("image"), ThreadsController.create);
 
 router.get("/followes", authenticate, FollowsController.findRandom);
 router.get("/follow", authenticate, FollowsController.find) // Mendapatkan daftar follow setelah melewati proses autentikasi
