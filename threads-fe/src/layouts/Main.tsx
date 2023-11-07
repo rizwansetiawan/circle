@@ -6,7 +6,7 @@ import SidebarRight from "@/layouts/SidebarRight";
 export default function Main({ children }: { children: ReactNode }) {
   return (
     <>
-      <Grid templateColumns="repeat(12, 1fr)">
+      <Grid templateColumns="repeat(12, 1fr)"  >
         <GridItem colSpan={3}  >
           <SidebarLeftNew />
         </GridItem>
@@ -15,6 +15,7 @@ export default function Main({ children }: { children: ReactNode }) {
           <SidebarRight />
         </GridItem>
       </Grid>
+      {/* pos={["absolute","static"]} left={["-130px","0"]} */}
     </>
   );
 }

@@ -1,34 +1,12 @@
-import { Box, Text, Button } from "@chakra-ui/react";
-import {
-  BsHeart,
-  BsHouseDoor,
-  BsSearch,
-  BsHouseDoorFill,
-} from "react-icons/bs";
-import {FaHeart} from "react-icons/fa"
-import { CiLogout } from "react-icons/ci";
-import { CgProfile } from "react-icons/cg";
-import { MdPersonOutline } from "react-icons/md";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { AUTH_LOGOUT } from "@/stores/rootReducer";
-import { BiSolidSearch } from "react-icons/bi";
+import LeftSIdeBar from "@/components/responsive/leftSIdeBar";
 
 export default function SidebarLeftNew() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const dispatch = useDispatch()
 
-  const Logout = () => {
-    dispatch(AUTH_LOGOUT());
-      navigate("/auth/login");
-      console.log("Logout berhasil");
-  };
 
-  //const { handleLogout } = useLogin();
   return (
     <>
-      <Box position={"fixed"} h={"1vh"} w={"22%"} pt={"10px"} px={"50px"}>
+    <LeftSIdeBar/>
+      {/* <Box position={"fixed"} h={"1vh"} w={"22%"} pt={"10px"} px={"50px"}>
         <Text fontWeight={"bold"} fontSize={"40px"} color={"cyan.400"}>
           Circle
         </Text>
@@ -117,7 +95,6 @@ export default function SidebarLeftNew() {
         >
           Create Post
         </Button>
-            {/* <Link to={"/auth/login"}> */}
         <Text
           onClick={Logout}
           cursor={"pointer"}
@@ -132,8 +109,7 @@ export default function SidebarLeftNew() {
         >
           <CiLogout color="#40C8FF" /> Logout
         </Text>
-          {/* </Link> */}
-      </Box>
+      </Box> */}
     </>
   );
 }

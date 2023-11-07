@@ -27,7 +27,7 @@ export default function SidebarRight() {
 
   return (
     <>
-      <Card p={"10px"} m={"20px"} borderRadius={"10px"}>
+      <Card p={"10px"} m={"20px"} display={["none","block"]} borderRadius={"10px"}>
         <CardBody>
           <Heading size="sm" mb={"20px"}>
             My Profile
@@ -81,7 +81,7 @@ export default function SidebarRight() {
         </CardBody>
       </Card>
       {/* suggested for you */}
-      <Card p={"10px"} m={"20px"} borderRadius={"10px"}>
+      <Card p={"10px"} m={"20px"} display={["none","block"]} borderRadius={"10px"}>
         <Heading ms={"20px"} mt={"20px"} size="sm">
           Suggested for you
         </Heading>
@@ -181,7 +181,7 @@ export default function SidebarRight() {
           </Flex>
         </CardBody>
       </Card>
-      <Card p={"10px"} m={"20px"} borderRadius={"10px"}>
+      <Card p={"10px"} m={"20px"} display={["none","block"]} borderRadius={"10px"}>
       <Box
           maxW={"370px"}
           h={"60px"}

@@ -1,8 +1,9 @@
-import { Box, Button, Checkbox, Flex, FormControl, FormLabel, Heading, Input, InputGroup, InputRightElement, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import { useLogin } from "../hooks/useLogin";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { EmailIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import {Link} from "react-router-dom"
+import { CgPassword } from "react-icons/cg";
 export function FormLogin() {
   const { handleChange, handleLogin } = useLogin();
   const [showPassword, setShowPassword] = useState(false);
@@ -24,7 +25,7 @@ export function FormLogin() {
           </Stack>
           <Box
             rounded={"lg"}
-            w={"400px"}
+            w={["350px","400px"]}
             bg={useColorModeValue("white", "gray.700")}
             boxShadow={"lg"}
             p={4}
@@ -32,42 +33,34 @@ export function FormLogin() {
             <Stack spacing={4}>
               <FormControl id="email">
                 <FormLabel></FormLabel>
-                <Input
-                  type="email"
-                  placeholder="Email address"
-                  name="email"
-                  onChange={handleChange}
-                />
+                <InputGroup>
+                <InputLeftElement pointerEvents="none">
+                  <EmailIcon color="gray.300" />
+                </InputLeftElement>
+                <Input type="text" name="email" onChange={handleChange} placeholder="email address" />
+              </InputGroup>
               </FormControl>
               <FormControl id="password">
-                <InputGroup>
-                  <Input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="password"
-                    name="password"
-                    onChange={handleChange}
-                  />
-                  <InputRightElement h={"full"}>
-                    <Button
-                      variant={"ghost"}
-                      onClick={() =>
-                        setShowPassword((showPassword: any) => !showPassword)
-                      }
-                    >
-                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
+              <InputGroup>
+              <InputGroup>
+                <InputLeftElement pointerEvents="none">
+                  <CgPassword color="gray.300" />
+                </InputLeftElement>
+                <Input type={showPassword?"text":"password"} name="password" onChange={handleChange} placeholder="password" />
+              </InputGroup>
+                <InputRightElement h={"full"}>
+                  <Button
+                    variant={"ghost"}
+                    onClick={() =>
+                      setShowPassword((showPassword) => !showPassword)
+                    }
+                  >
+                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
               </FormControl>
               <Stack spacing={10}>
-                <Stack
-                  direction={{ base: "column", sm: "row" }}
-                  align={"start"}
-                  justify={"space-between"}
-                >
-                  <Checkbox>Remember me</Checkbox>
-                  <Text color={"blue.400"}>Forgot password?</Text>
-                </Stack>
                 <Button
                   onClick={handleLogin}
                   bg={"cyan.600"}
