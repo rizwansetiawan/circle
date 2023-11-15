@@ -2,7 +2,7 @@ import { IUserLogin } from '@/interfaces/user';
 import { API } from '@/libs/api';
 import { useState, ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { AUTH_LOGIN } from '@/stores/rootReducer';
+import { AUTH_LOGIN, AUTH_LOGOUT } from '@/stores/rootReducer';
 import { useDispatch } from 'react-redux';
 
 
@@ -32,7 +32,15 @@ export function useLogin() {
             console.log(err)
         }
     }
+    async function handleLogout() {
+        try {
+            dispatch(AUTH_LOGOUT())
+            navigate('/auth/login')
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
-    return { handleChange, handleLogin }
+    return { handleChange, handleLogin,handleLogout }
 
 }

@@ -12,7 +12,6 @@ export function ThreadCard(props: IThreadCard) {
   const { handlePostLike } = useThreadCard();
   const [showImage, setImage] = useState<boolean>(true);
   return (
-    <>
       <Box
         display={"flex"}
         width="100%"
@@ -82,6 +81,6 @@ export function ThreadCard(props: IThreadCard) {
           </Box>
         </Box>
       </Box>
-    </>
+
   );
 }

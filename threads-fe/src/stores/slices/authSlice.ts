@@ -69,6 +69,7 @@ export const authSlice = createSlice({
     },
     AUTH_LOGOUT: () => {
       localStorage.removeItem("token");
+      setAuthToken(null)
     },
     ALERT_NOTIF:()=>{
       console.log("berhasil dapet dari redux");

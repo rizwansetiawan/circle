@@ -30,8 +30,13 @@ import { MdPersonOutline } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AUTH_LOGOUT } from "@/stores/rootReducer";
+import { useEffect } from "react";
+import { useToast } from "@chakra-ui/react";
+import { useLogin } from "@/features/auth/hooks/useLogin";
 
 export default function LeftSIdeBar() {
+  const toast = useToast()
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
@@ -65,15 +70,17 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const {handleLogout}= useLogin()
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const Logout = () => {
-    dispatch(AUTH_LOGOUT());
-    navigate("/auth/login");
-    console.log("Logout berhasil");
-  };
+  // const Logout = () => {
+  //   dispatch(AUTH_LOGOUT());
+  //   navigate("/auth/login");
+
+  // };
+
   return (
     <Box
       bg={useColorModeValue("white", "gray.900")} // not
@@ -187,7 +194,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           Create Post
         </Button>
         <Text
-          onClick={Logout}
+          onClick={handleLogout}
           cursor={"pointer"}
           mt={"200px"}
           display={"flex"}

@@ -2,10 +2,12 @@ import { IThreadPost } from "@/interfaces/thread";
 import { API } from "@/libs/api";
 import { GET_THREADS } from "@/stores/rootReducer";
 import { RootState } from "@/stores/types/rootState";
+import { useToast } from "@chakra-ui/react";
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 export function useThreads() {
+  const toast = useToast()
   const dispatch = useDispatch();
   const threads = useSelector((state: RootState) => state.thread.threads);
   const [form, setForm] = useState<IThreadPost>({
@@ -29,6 +31,12 @@ export function useThreads() {
       setForm({
         content:"",
         image:""
+      })
+      toast({
+        title:"succesfully",
+        status:"success",
+        isClosable:true,
+        position:"top"
       })
       setPreview(null)
       console.log("Thread added successfully!", response);
@@ -73,10 +81,8 @@ export function useThreads() {
       const selectedImage  = event.target.files && event.target.files[0]
       setDataImage(selectedImage)
       const selectedPreview = event.target.files && event.target.files[0]
-      if (selectedPreview){
-        if(selectedPreview instanceof File){
+      if (selectedPreview && selectedPreview instanceof File){
           setPreview(URL.createObjectURL(selectedPreview))
-        }
       }else{
         setPreview(null)
       }

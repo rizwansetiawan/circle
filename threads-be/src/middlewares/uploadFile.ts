@@ -19,9 +19,9 @@ interface Params {
   
 export const upload = (image: string) => {
     cloudinary.config({
-        cloud_name: "dkndf2exn",
-        api_key: "647259742127437",
-        api_secret: "KcklzjNf1x4BVYem5jK6M9YKCFE",
+        cloud_name: process.env.CLOUD_NAME,
+        api_key: process.env.API_KEY,
+        api_secret: process.env.API_SECRET
     })
 
     const storage = new CloudinaryStorage({
